@@ -1,16 +1,25 @@
 package com.DEMOJWT.demo.dto;
 
-public class User {
-    private String user;
-    private String pwd;
-    private String token;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    public String getUser() {
-        return user;
+@Document(collection = "users")
+public class User {
+    @Id
+    private String id;
+
+    @Indexed(unique = true)
+    private String username;
+
+    private String pwd;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPwd() {
@@ -21,11 +30,4 @@ public class User {
         this.pwd = pwd;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }

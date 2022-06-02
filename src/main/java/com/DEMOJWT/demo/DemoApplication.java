@@ -1,6 +1,7 @@
 package com.DEMOJWT.demo;
 
 import com.DEMOJWT.demo.security.JWTAuthorizationFilter;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
@@ -27,10 +28,11 @@ public class DemoApplication {
 			http.csrf().disable()
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/user").permitAll()
+					// allow anonymous resource requests to login and register users
+					.antMatchers(HttpMethod.POST, "/user/login").permitAll()
+					.antMatchers(HttpMethod.POST, "/user/register").permitAll()
 					.anyRequest().authenticated();
 		}
 	}
-
 
 }
